@@ -28,7 +28,7 @@ public final class LoginPresenter extends MvpPresenter<LoginView> {
     public void onUserClick(User selectedUser) {
         if(selectedUser != null) {
             sessionRepository.setSessionId(selectedUser.getSessionId());
-            view.openQuestionListScreen(selectedUser.getName());
+            view.openMenuScreen(selectedUser.getName());
         } else {
             view.showUserNotSelectedError();
         }

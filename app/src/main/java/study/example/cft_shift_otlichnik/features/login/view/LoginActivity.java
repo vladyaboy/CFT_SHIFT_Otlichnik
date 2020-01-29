@@ -18,6 +18,7 @@ import study.example.cft_shift_otlichnik.features.BaseActivity;
 import study.example.cft_shift_otlichnik.features.login.model.User;
 import study.example.cft_shift_otlichnik.features.login.presentation.LoginPresenter;
 import study.example.cft_shift_otlichnik.features.login.presentation.PresenterFactory;
+import study.example.cft_shift_otlichnik.features.menu.view.MenuActivity;
 
 public class LoginActivity extends BaseActivity implements LoginView {
 
@@ -65,8 +66,8 @@ public class LoginActivity extends BaseActivity implements LoginView {
     }
 
     @Override
-    public void openQuestionListScreen(String userName) {
-        Toast.makeText(this, "Ты тыкнул " + userName, Toast.LENGTH_LONG).show();
+    public void openMenuScreen(String userName) {
+        MenuActivity.start(this);
     }
 
     @Override

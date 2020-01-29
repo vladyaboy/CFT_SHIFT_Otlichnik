@@ -9,7 +9,7 @@ public interface LoginView extends MvpView {
 
     void showUserList(List<User> userList);
 
-    void openQuestionListScreen(String userName);
+    void openMenuScreen(String userName);
 
     void showUserNotSelectedError();
 
