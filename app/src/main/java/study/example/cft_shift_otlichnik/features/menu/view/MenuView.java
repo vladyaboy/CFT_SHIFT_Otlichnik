@@ -4,7 +4,7 @@ import study.example.cft_shift_otlichnik.MvpView;
 
 public interface MenuView extends MvpView {
 
-    public void showQuestionsListScreen();
+    void showPracticeScreen();
 
-    public void showExamScreen();
+    void showExamScreen();
 }

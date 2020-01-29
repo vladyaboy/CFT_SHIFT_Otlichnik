@@ -50,23 +50,32 @@ public class MenuActivity extends BaseActivity implements MenuView {
         practiceButton = findViewById(R.id.practiceButton);
         examButton = findViewById(R.id.examButton);
 
+        practiceButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                menuPresenter.practiceButtonClick();
+            }
+        });
+
+        examButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                menuPresenter.examButtonClick();
+            }
+        });
+
     }
 
-    public void buttonClickProcessing(View v){
-        if(v.getTag().equals(practiceButton.getTag())) {
-            menuPresenter.onMenuItemClick(0); // открывает активити с практикой
-        } else if(v.getTag() == examButton.getTag()) {
-            menuPresenter.onMenuItemClick(1); // открывает активити с экзаменом
-        }
-    }
 
     @Override
-    public void showQuestionsListScreen() {
+    public void showPracticeScreen() {
         Toast.makeText(this,"Го в практику", Toast.LENGTH_LONG).show();
+        //PracticeActivity.start
     }
 
     @Override
     public void showExamScreen() {
         Toast.makeText(this,"Го в екзамены", Toast.LENGTH_LONG).show();
+        //ExamActivity.start
     }
 }
