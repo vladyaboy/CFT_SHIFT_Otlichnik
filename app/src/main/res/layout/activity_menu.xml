@@ -22,16 +22,12 @@
             android:id="@+id/practiceButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:onClick="buttonClickProcessing"
-            android:tag="practice"
             android:text="Попрактикуемси?" />
 
         <Button
             android:id="@+id/examButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:onClick="buttonClickProcessing"
-            android:tag="exam"
             android:text="Поэкзаминуемси?" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
