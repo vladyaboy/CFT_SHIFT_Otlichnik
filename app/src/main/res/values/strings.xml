@@ -1,7 +1,7 @@
 <resources>
 
     <string name="app_name">CFT_SHIFT_Otlichnik</string>
-    <string name="show_all">Показать все</string>
+    <string name="show_all">Все вопросы</string>
 
     <string-array name="subjects">
         <item>Кот</item>

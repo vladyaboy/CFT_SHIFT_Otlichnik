@@ -11,7 +11,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
+import okhttp3.Interceptor;
 import study.example.cft_shift_otlichnik.R;
 import study.example.cft_shift_otlichnik.features.questions.model.Question;
 
@@ -19,8 +21,11 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.Questi
 
     private final List<Question> allQuestions = new ArrayList<>();
     private final LayoutInflater inflater;
+    private final List<String> subjectsList = new ArrayList<>();
     private final SelectQuestionListener selectQuestionListener;
-    private final List<Question> filteredQuestions = new ArrayList<>();
+    private final List<Question> dynamicSubjectQuestions = new ArrayList<>();
+
+
 
     public QuestionAdapter(Context context, SelectQuestionListener selectQuestionListener) {
         inflater = LayoutInflater.from(context);
@@ -36,7 +41,7 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.Questi
 
     @Override
     public void onBindViewHolder(@NonNull QuestionHolder holder, int position) {
-        holder.bind(filteredQuestions.get(position));
+        holder.bind(dynamicSubjectQuestions.get(position));
     }
 
     @Override
@@ -44,34 +49,51 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.Questi
         return allQuestions.size();
     }
 
-    public void setFilteredQuestions(List<Question> questionList) {
+    //Заполняем лист отфильтрованными вопросами
+    public void setDynamicSubjectQuestions(List<Question> questionList) {
         //allQuestions.clear();
         //allQuestions.addAll(questionList);
-        filteredQuestions.addAll(questionList);
+        dynamicSubjectQuestions.clear();
+        dynamicSubjectQuestions.addAll(questionList);
         notifyDataSetChanged();
     }
 
+
+    //Сбрасываем фильтр на нейтральный
+    public void showAllQuestions() {
+        dynamicSubjectQuestions.clear();
+        dynamicSubjectQuestions.addAll(allQuestions);
+        notifyDataSetChanged();
+    }
+
+    //Заполняем список уникальных предметов
+    public void initSubjectsList() {
+            subjectsList.clear();
+            for(Question question : allQuestions) { subjectsList.add(question.getSubject()); }
+        subjectsList.stream().distinct().collect(Collectors.toList());
+    }
+
+
+    //Заполняем лист со всеми вопросами и дальше его не меняем, только достаем данные
     public void initAllQuestions(List<Question> questionList) {
         allQuestions.clear();
         allQuestions.addAll(questionList);
     }
 
+    //Фильтруем вопросы по запросу пользователя, нажавшего на значение в спиннере
     public void filterQuestions(String subjectName) {
 
-        filteredQuestions.clear();
+        ArrayList<Question> temporaryList = new ArrayList<>();
 
         if(subjectName.equals(R.string.show_all)){
-            setFilteredQuestions(allQuestions);
+            showAllQuestions();
         } else {
-
             for (Question question : allQuestions) {
-                if (question.getSubject().equals(subjectName)) {
-                    filteredQuestions.add(question);
-                }
-                if (filteredQuestions.size() > 0) {
-                    setFilteredQuestions(filteredQuestions);
+                if (question.getSubject().equals(subjectName)) { dynamicSubjectQuestions.add(question); }
+                if (temporaryList.size() > 0) {
+                    setDynamicSubjectQuestions(temporaryList);
                 } else {
-                    setFilteredQuestions(allQuestions);
+                    setDynamicSubjectQuestions(allQuestions);
                 }
             }
         }
@@ -102,6 +124,7 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.Questi
                 }
             });
 
+            //Не факт что пригодится
             itemView.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View view) {

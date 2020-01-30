@@ -30,6 +30,7 @@ public final class QuestionListPresenter extends MvpPresenter<QuestionListView> 
             public void onSuccess(List<Question> result) {
                 //Вызываем метод в активити, который передает адаптеру данные со списком вопросов, пришедшим с сервера
                 view.initQuestionList(result);
+                view.initSubjectList(result);
                 view.hideProgress();
             }
 
@@ -44,8 +45,8 @@ public final class QuestionListPresenter extends MvpPresenter<QuestionListView> 
 
     public void onQuestionSelected(Question question) {
         //открытие вопросика
-
     }
+
 
     public void onCreateQuestion() {
 

@@ -12,6 +12,10 @@ public interface QuestionListView extends MvpView {
 
     void initQuestionList(List<Question> list);
 
+    void initSubjectList(List<Question> list);
+
+    void updateDynamicQuestionList(List<Question> list);
+
     void showProgress();
 
     void hideProgress();

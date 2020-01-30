@@ -12,7 +12,9 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
+import android.widget.SpinnerAdapter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import study.example.cft_shift_otlichnik.MvpPresenter;
@@ -23,6 +25,7 @@ import study.example.cft_shift_otlichnik.features.questions.model.Question;
 import study.example.cft_shift_otlichnik.features.questions.presentation.PresenterFactory;
 import study.example.cft_shift_otlichnik.features.questions.presentation.QuestionAdapter;
 import study.example.cft_shift_otlichnik.features.questions.presentation.QuestionListPresenter;
+import study.example.cft_shift_otlichnik.features.questions.presentation.SpinnerAdapterFactory;
 
 public class QuestionsActivity extends BaseActivity implements QuestionListView {
 
@@ -33,10 +36,11 @@ public class QuestionsActivity extends BaseActivity implements QuestionListView 
 
     private RecyclerView recyclerView;
     private Button createQuestionButton;
-    private Button filterButton;
     private QuestionAdapter adapter;
     private ProgressBar progressBar;
     private Spinner filterSpinner;
+    private ArrayAdapter spinnerAdapter;
+    private SpinnerAdapterFactory spinnerAdapterFactory;
 
     private QuestionListPresenter presenter;
 
@@ -64,15 +68,7 @@ public class QuestionsActivity extends BaseActivity implements QuestionListView 
         createQuestionButton = findViewById(R.id.create_button);
         filterSpinner = findViewById(R.id.filterSpinner);
 
-        //Спиннер бы тоже распределить по пакетам
 
-        String[] subjects = {"Матанализ", "Археология", "Тортоедство", "Кибербуллинг", "Показать все"};
-
-        // Создаем адаптер ArrayAdapter с помощью массива строк и стандартной разметки элемета spinner
-        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, subjects);
-        // Определяем разметку для использования при выборе элемента
-        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        // Применяем адаптер к элементу spinner
         filterSpinner.setAdapter(spinnerAdapter);
 
         AdapterView.OnItemSelectedListener itemSelectedListener = new AdapterView.OnItemSelectedListener() {
@@ -82,7 +78,8 @@ public class QuestionsActivity extends BaseActivity implements QuestionListView 
                 // Получаем выбранный объект
                 String subjectName = (String)parent.getItemAtPosition(position);
                 //тут замутить фильтр вопросов из списка по предмету
-                adapter.filterQuestions(subjectName);
+                //UPDATE: вроде замутил. Надо чекать теперь на сервере
+                filterQuestionList(subjectName);
 
             }
 
@@ -91,6 +88,7 @@ public class QuestionsActivity extends BaseActivity implements QuestionListView 
 
             }
         };
+
         filterSpinner.setOnItemSelectedListener(itemSelectedListener);
 
 
@@ -123,8 +121,22 @@ public class QuestionsActivity extends BaseActivity implements QuestionListView 
     @Override
     public void initQuestionList(List<Question> list) {
         adapter.initAllQuestions(list);
-        adapter.setFilteredQuestions(list);
+        adapter.setDynamicSubjectQuestions(list);
     }
+
+    @Override
+    public void initSubjectList(List<Question> list) {
+        spinnerAdapterFactory = new SpinnerAdapterFactory(list);
+        spinnerAdapter = spinnerAdapterFactory.createAdapter(this, android.R.layout.simple_spinner_item);
+        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+    }
+
+    @Override
+    public void updateDynamicQuestionList(List<Question> list) {
+
+    }
+
+
 
 
     @Override
