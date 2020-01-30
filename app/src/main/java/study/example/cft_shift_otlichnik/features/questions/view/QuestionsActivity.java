@@ -118,10 +118,14 @@ public class QuestionsActivity extends BaseActivity implements QuestionListView 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
 
+
+
     @Override
-    public void showQuestionList(List<Question> list) {
-        adapter.setQuestions(list);
+    public void initQuestionList(List<Question> list) {
+        adapter.initAllQuestions(list);
+        adapter.setFilteredQuestions(list);
     }
+
 
     @Override
     public void filterQuestionList(String subjectName) {

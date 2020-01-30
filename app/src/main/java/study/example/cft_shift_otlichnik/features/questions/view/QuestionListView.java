@@ -7,9 +7,10 @@ import study.example.cft_shift_otlichnik.features.questions.model.Question;
 
 public interface QuestionListView extends MvpView {
 
-    void showQuestionList(List<Question> list);
 
     void filterQuestionList(String subjectName);
+
+    void initQuestionList(List<Question> list);
 
     void showProgress();
 

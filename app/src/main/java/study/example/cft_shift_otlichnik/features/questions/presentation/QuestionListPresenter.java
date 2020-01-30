@@ -22,12 +22,14 @@ public final class QuestionListPresenter extends MvpPresenter<QuestionListView> 
         loadQuestions();
     }
 
+    //Скачиваем вопросы с сервера. Пробуем, по крайней мере
     private void loadQuestions() {
         view.showProgress();
         questionsRepository.loadQuestions(new Carry<List<Question>>() {
             @Override
             public void onSuccess(List<Question> result) {
-                view.showQuestionList(result);
+                //Вызываем метод в активити, который передает адаптеру данные со списком вопросов, пришедшим с сервера
+                view.initQuestionList(result);
                 view.hideProgress();
             }
 

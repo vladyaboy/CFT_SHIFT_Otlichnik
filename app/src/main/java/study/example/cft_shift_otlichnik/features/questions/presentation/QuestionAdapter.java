@@ -17,7 +17,7 @@ import study.example.cft_shift_otlichnik.features.questions.model.Question;
 
 public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.QuestionHolder> {
 
-    private final List<Question> questions = new ArrayList<>();
+    private final List<Question> allQuestions = new ArrayList<>();
     private final LayoutInflater inflater;
     private final SelectQuestionListener selectQuestionListener;
     private final List<Question> filteredQuestions = new ArrayList<>();
@@ -36,32 +36,46 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.Questi
 
     @Override
     public void onBindViewHolder(@NonNull QuestionHolder holder, int position) {
-        holder.bind(questions.get(position));
+        holder.bind(filteredQuestions.get(position));
     }
 
     @Override
     public int getItemCount() {
-        return questions.size();
+        return allQuestions.size();
     }
 
-    public void setQuestions(List<Question> questionList) {
-        questions.clear();
-        questions.addAll(questionList);
+    public void setFilteredQuestions(List<Question> questionList) {
+        //allQuestions.clear();
+        //allQuestions.addAll(questionList);
+        filteredQuestions.addAll(questionList);
         notifyDataSetChanged();
+    }
+
+    public void initAllQuestions(List<Question> questionList) {
+        allQuestions.clear();
+        allQuestions.addAll(questionList);
     }
 
     public void filterQuestions(String subjectName) {
 
         filteredQuestions.clear();
 
-        for(Question question : questions){
-            if(question.getSubject().equals(subjectName)){
-                filteredQuestions.add(question);
-            }
-            if(filteredQuestions.size() > 0) {
+        if(subjectName.equals(R.string.show_all)){
+            setFilteredQuestions(allQuestions);
+        } else {
 
+            for (Question question : allQuestions) {
+                if (question.getSubject().equals(subjectName)) {
+                    filteredQuestions.add(question);
+                }
+                if (filteredQuestions.size() > 0) {
+                    setFilteredQuestions(filteredQuestions);
+                } else {
+                    setFilteredQuestions(allQuestions);
+                }
             }
         }
+
     }
 
 
