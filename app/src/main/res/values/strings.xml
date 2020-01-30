@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">CFT_SHIFT_Otlichnik</string>
+
+
+    <string-array name="subjects">
+        <item>Кот</item>
+        <item>Кошка</item>
+        <item>Котёнок</item>
+        <item>Животное</item>
+        <item>Покажи мне все</item>
+    </string-array>
+
 </resources>

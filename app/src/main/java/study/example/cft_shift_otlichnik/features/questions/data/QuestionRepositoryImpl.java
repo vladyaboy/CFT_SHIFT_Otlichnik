@@ -24,10 +24,6 @@ public class QuestionRepositoryImpl implements QuestionsRepository {
         //тут пока хз
     }
 
-    @Override
-    public void updateQuestions(Carry<List<Question>> carry) {
-
-    }
 
     @Override
     public void createQuestion(Question question, Carry<Question> carry) {

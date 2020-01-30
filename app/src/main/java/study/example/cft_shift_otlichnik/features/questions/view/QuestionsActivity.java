@@ -7,8 +7,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ProgressBar;
+import android.widget.Spinner;
 
 import java.util.List;
 
@@ -33,6 +36,7 @@ public class QuestionsActivity extends BaseActivity implements QuestionListView 
     private Button filterButton;
     private QuestionAdapter adapter;
     private ProgressBar progressBar;
+    private Spinner filterSpinner;
 
     private QuestionListPresenter presenter;
 
@@ -58,7 +62,37 @@ public class QuestionsActivity extends BaseActivity implements QuestionListView 
         progressBar = findViewById(R.id.progressBar);
         recyclerView = findViewById(R.id.questionsRecyclerView);
         createQuestionButton = findViewById(R.id.create_button);
-        filterButton = findViewById(R.id.filter_button);
+        filterSpinner = findViewById(R.id.filterSpinner);
+
+        //Спиннер бы тоже распределить по пакетам
+
+        String[] subjects = {"Матанализ", "Археология", "Тортоедство", "Кибербуллинг", "Показать все"};
+
+        // Создаем адаптер ArrayAdapter с помощью массива строк и стандартной разметки элемета spinner
+        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, subjects);
+        // Определяем разметку для использования при выборе элемента
+        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        // Применяем адаптер к элементу spinner
+        filterSpinner.setAdapter(spinnerAdapter);
+
+        AdapterView.OnItemSelectedListener itemSelectedListener = new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                // Получаем выбранный объект
+                String subjectName = (String)parent.getItemAtPosition(position);
+                //тут замутить фильтр вопросов из списка по предмету
+                adapter.filterQuestions(subjectName);
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        };
+        filterSpinner.setOnItemSelectedListener(itemSelectedListener);
+
 
         createQuestionButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,6 +105,7 @@ public class QuestionsActivity extends BaseActivity implements QuestionListView 
             @Override
             public void onQuestionSelect(Question question) {
                 presenter.onQuestionSelected(question);
+                //реализовать открытие вопроса и мб редактирование
             }
 
             @Override
@@ -89,8 +124,8 @@ public class QuestionsActivity extends BaseActivity implements QuestionListView 
     }
 
     @Override
-    public void updateQuestionList(List<Question> list) {
-        adapter.updateQuestions(list);
+    public void filterQuestionList(String subjectName) {
+        adapter.filterQuestions(subjectName);
     }
 
     @Override

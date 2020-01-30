@@ -11,8 +11,6 @@ public interface QuestionsRepository {
 
     void editQuestion(String id, String subject, String questionText, String answer, String author);
 
-    void updateQuestions(Carry<List<Question>> carry);
-
     void createQuestion(Question question, Carry<Question> carry);
 
     void deleteQuestion(String id, Carry<Success> carry);

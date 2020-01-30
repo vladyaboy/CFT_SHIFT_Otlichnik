@@ -20,6 +20,7 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.Questi
     private final List<Question> questions = new ArrayList<>();
     private final LayoutInflater inflater;
     private final SelectQuestionListener selectQuestionListener;
+    private final List<Question> filteredQuestions = new ArrayList<>();
 
     public QuestionAdapter(Context context, SelectQuestionListener selectQuestionListener) {
         inflater = LayoutInflater.from(context);
@@ -49,10 +50,20 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.Questi
         notifyDataSetChanged();
     }
 
-    public void updateQuestions(List<Question> questionsList) {
-        questions.addAll(questionsList);
-        notifyDataSetChanged();
+    public void filterQuestions(String subjectName) {
+
+        filteredQuestions.clear();
+
+        for(Question question : questions){
+            if(question.getSubject().equals(subjectName)){
+                filteredQuestions.add(question);
+            }
+            if(filteredQuestions.size() > 0) {
+
+            }
+        }
     }
+
 
     class QuestionHolder extends RecyclerView.ViewHolder {
         private final TextView questionTextView;

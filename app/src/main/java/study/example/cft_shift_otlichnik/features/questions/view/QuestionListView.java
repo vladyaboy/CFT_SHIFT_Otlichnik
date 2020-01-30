@@ -9,7 +9,7 @@ public interface QuestionListView extends MvpView {
 
     void showQuestionList(List<Question> list);
 
-    void updateQuestionList(List<Question> list);
+    void filterQuestionList(String subjectName);
 
     void showProgress();
 

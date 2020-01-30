@@ -39,22 +39,6 @@ public final class QuestionListPresenter extends MvpPresenter<QuestionListView> 
         });
     }
 
-    private void loadMoreQuestions() {
-        view.showProgress();
-        questionsRepository.updateQuestions(new Carry<List<Question>>() {
-            @Override
-            public void onSuccess(List<Question> result) {
-                view.updateQuestionList(result);
-                view.hideProgress();
-            }
-
-            @Override
-            public void onFailure(Throwable throwable) {
-                view.hideProgress();
-                view.showError(throwable.getMessage());
-            }
-        });
-    }
 
     public void onQuestionSelected(Question question) {
         //открытие вопросика
