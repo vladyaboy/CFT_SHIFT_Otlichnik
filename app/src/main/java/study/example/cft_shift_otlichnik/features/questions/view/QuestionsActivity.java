@@ -1,6 +1,5 @@
 package study.example.cft_shift_otlichnik.features.questions.view;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 

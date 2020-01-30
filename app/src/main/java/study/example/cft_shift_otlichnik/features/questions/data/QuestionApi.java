@@ -12,7 +12,7 @@ import study.example.cft_shift_otlichnik.features.questions.model.Question;
 
 public interface QuestionApi {
 
-    @GET("questions")
+    @GET("questions?page=0")
     Call<List<Question>> getQuestionList();
 
     @GET("questions/{id}")
