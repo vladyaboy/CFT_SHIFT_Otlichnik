@@ -9,6 +9,7 @@
     <string name="edit_question">Редактировать</string>
     <string name="cancel_edit">Отменить</string>
     <string name="accept_edit">Применить</string>
+    <string name="add_question">Добавить</string>
 
     <string-array name="subjects">
         <item>Кот</item>

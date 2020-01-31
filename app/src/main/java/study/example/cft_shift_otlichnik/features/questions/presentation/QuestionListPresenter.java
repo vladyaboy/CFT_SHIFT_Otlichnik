@@ -65,7 +65,17 @@ public final class QuestionListPresenter extends MvpPresenter<QuestionListView> 
     }
 
 
-    public void onCreateQuestion() {
+    public void onCreateQuestion(Question question) {
+        questionsRepository.createQuestion(question, new Carry<Question>() {
+            @Override
+            public void onSuccess(Question result) {
+                view.showError("Вопрос успешно добавлен!");
+            }
 
+            @Override
+            public void onFailure(Throwable throwable) {
+                view.showError(throwable.getMessage());
+            }
+        });
     }
 }

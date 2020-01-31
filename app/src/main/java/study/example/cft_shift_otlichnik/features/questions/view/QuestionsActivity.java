@@ -33,6 +33,7 @@ import study.example.cft_shift_otlichnik.features.questions.presentation.Spinner
 public class QuestionsActivity extends BaseActivity implements QuestionListView {
 
     private static final String QUESTION_DIALOG_TAG = "question_dialog";
+    private static final String ADD_QUESTION_DIALOG_TAG = "add_question_dialog";
 
     public static void start(final Context context) {
         Intent intent = new Intent(context, QuestionsActivity.class);
@@ -100,7 +101,8 @@ public class QuestionsActivity extends BaseActivity implements QuestionListView 
         createQuestionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                presenter.onCreateQuestion();
+                Toast.makeText(getApplicationContext(), "Clicked", Toast.LENGTH_SHORT).show();
+                createQuestion();
             }
         });
 
@@ -152,6 +154,18 @@ public class QuestionsActivity extends BaseActivity implements QuestionListView 
         });
 
         singleQuestionDialog.show(getSupportFragmentManager(), QUESTION_DIALOG_TAG);
+    }
+
+    @Override
+    public void createQuestion() {
+        AddQuestionDialog addQuestionDialog = AddQuestionDialog.newInstance();
+        addQuestionDialog.setOnCreateQuestion (createdQuestion -> {
+            presenter.onCreateQuestion(createdQuestion);
+            finish();
+            QuestionsActivity.start(this);
+        });
+
+        addQuestionDialog.show(getSupportFragmentManager(), ADD_QUESTION_DIALOG_TAG);
     }
 
     @Override

@@ -3,23 +3,18 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
+    android:layout_height="400dp"
     android:orientation="vertical">
 
     <EditText
         android:id="@+id/questionSubjectEditText"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:background="@android:color/transparent"
-        android:inputType="none"
+        android:layout_marginTop="24dp"
         android:hint="@string/empty_subject"
-        android:singleLine="true"
-        android:textAlignment="center"
+        android:background="@android:color/transparent"
         android:editable="false"
-        android:textSize="14sp"
+        android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -29,12 +24,12 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
+        android:background="@android:color/transparent"
+        android:editable="false"
         android:hint="@string/empty_question"
         android:textAlignment="viewStart"
-        android:editable="false"
-        android:background="@android:color/transparent"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -45,14 +40,15 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:background="@android:color/transparent"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
-        android:inputType="none"
+        android:background="@android:color/transparent"
         android:editable="false"
         android:fontFamily="sans-serif"
         android:hint="@string/empty_answer"
+        android:inputType="none"
         android:textAlignment="viewStart"
+        android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/questionTextEditText" />
@@ -75,11 +71,14 @@
         app:layout_constraintTop_toBottomOf="@+id/questionAnswerEditText" />
 
     <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="64dp"
+        android:layout_marginBottom="16dp"
         android:background="@android:color/transparent"
         android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/authorEditText">
@@ -104,5 +103,20 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/alertTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="10dp"
+        android:text="Заполните все поля чтобы добавить вопрос"
+        android:textColor="#E40B0B"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/authorEditText" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

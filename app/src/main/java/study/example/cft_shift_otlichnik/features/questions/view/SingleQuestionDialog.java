@@ -66,7 +66,7 @@ public final class SingleQuestionDialog extends DialogFragment {
         applyButton.setVisibility(View.INVISIBLE);
 
         editButton.setOnClickListener(v -> {
-            questionSubjectEditText.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_LONG_MESSAGE);
+            questionSubjectEditText.setInputType(InputType.TYPE_CLASS_TEXT);
             questionText.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_LONG_MESSAGE);
             answerText.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_LONG_MESSAGE);
             applyButton.setVisibility(View.VISIBLE);
@@ -76,8 +76,8 @@ public final class SingleQuestionDialog extends DialogFragment {
 
         applyButton.setOnClickListener( v -> {
             if(question.getAnswer().equals(answerText.getText().toString())
-                    || question.getSubject().equals(questionSubjectEditText.getText().toString())
-                    || question.getQuestionText().equals(questionText.getText().toString())) {
+                    && question.getSubject().equals(questionSubjectEditText.getText().toString())
+                    && question.getQuestionText().equals(questionText.getText().toString())) {
                 dismiss();
 
             }
