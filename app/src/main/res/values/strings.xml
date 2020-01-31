@@ -2,6 +2,13 @@
 
     <string name="app_name">CFT_SHIFT_Otlichnik</string>
     <string name="show_all">Все вопросы</string>
+    <string name="empty_subject">Добавьте название предмета</string>
+    <string name="empty_question">Добавьте текст вопроса</string>
+    <string name="empty_answer">Добавьте текст ответа, если уже знаете его</string>
+    <string name="empty_author">Автора добавлять не надо, я и так знаю кто ты</string>
+    <string name="edit_question">Редактировать</string>
+    <string name="cancel_edit">Отменить</string>
+    <string name="accept_edit">Применить</string>
 
     <string-array name="subjects">
         <item>Кот</item>
