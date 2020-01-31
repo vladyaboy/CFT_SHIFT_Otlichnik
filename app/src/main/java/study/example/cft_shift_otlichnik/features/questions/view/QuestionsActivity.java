@@ -1,5 +1,6 @@
 package study.example.cft_shift_otlichnik.features.questions.view;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -13,7 +14,9 @@ import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
+import android.widget.Toast;
 
+import java.security.AllPermission;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,6 +32,8 @@ import study.example.cft_shift_otlichnik.features.questions.presentation.Spinner
 
 public class QuestionsActivity extends BaseActivity implements QuestionListView {
 
+    private static final String QUESTION_DIALOG_TAG = "question_dialog";
+
     public static void start(final Context context) {
         Intent intent = new Intent(context, QuestionsActivity.class);
         context.startActivity(intent);
@@ -43,6 +48,8 @@ public class QuestionsActivity extends BaseActivity implements QuestionListView 
     private SpinnerAdapterFactory spinnerAdapterFactory;
 
     private QuestionListPresenter presenter;
+
+    private AlertDialog questionDialog;
 
     @Override
     protected MvpPresenter<QuestionListView> getPresenter() {
@@ -102,6 +109,7 @@ public class QuestionsActivity extends BaseActivity implements QuestionListView 
             public void onQuestionSelect(Question question) {
                 presenter.onQuestionSelected(question);
                 //реализовать открытие вопроса и мб редактирование
+                openDialogWithQuestion(question);
             }
 
             @Override
@@ -112,6 +120,7 @@ public class QuestionsActivity extends BaseActivity implements QuestionListView 
 
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
     }
 
 
@@ -129,6 +138,17 @@ public class QuestionsActivity extends BaseActivity implements QuestionListView 
         spinnerAdapter = spinnerAdapterFactory.createAdapter(getApplicationContext(), android.R.layout.simple_spinner_item);
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         filterSpinner.setAdapter(spinnerAdapter);
+    }
+
+    @Override
+    public void openDialogWithQuestion(Question question) {
+        SingleQuestionDialog singleQuestionDialog = SingleQuestionDialog.newInstance(question);
+
+        singleQuestionDialog.setOnQuestionUpdate(updatedQuestion -> {
+            presenter.updateQuestion(updatedQuestion);
+        });
+
+        singleQuestionDialog.show(getSupportFragmentManager(), QUESTION_DIALOG_TAG);
     }
 
     @Override
@@ -158,6 +178,6 @@ public class QuestionsActivity extends BaseActivity implements QuestionListView 
 
     @Override
     public void showError(String message) {
-
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
     }
 }

@@ -4,6 +4,7 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
+import retrofit2.http.PATCH;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 import study.example.cft_shift_otlichnik.features.questions.model.Question;
@@ -20,8 +21,8 @@ public interface QuestionApi {
     @POST("questions")
     Call<Question> createQuestion(@Body Question question);
 
-    @POST("questions/{id}")
-    Call<Question> editQuestion(@Path("id") String id, @Body Question question);
+    @PATCH("questions/{id}")
+    Call<Question> updateQuestion(@Path("id") String id, @Body Question question);
 
     @DELETE("questions/{id}")
     Call<Question> deleteQuestion(@Path("id") String id);

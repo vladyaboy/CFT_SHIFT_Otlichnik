@@ -2,12 +2,15 @@ package study.example.cft_shift_otlichnik.features.questions.model;
 
 import com.google.gson.annotations.SerializedName;
 
-public class Question {
+import java.io.Serializable;
+
+public class Question implements Serializable {
 
     private String id;
     private String subject;
     @SerializedName("text")
     private String questionText;
+    @SerializedName("correctAnswer")
     private String answer;
     private String author;
 
@@ -15,17 +18,23 @@ public class Question {
         this.answer = "";
     }
 
-    public Question(String subject, String questionText, String author) {
+    public Question(String questionText, String author, String subject) {
         this();
         this.subject = subject;
         this.questionText = questionText;
         this.author = author;
     }
 
-    public Question(String subject, String questionText, String answer, String author) {
+    public Question(String questionText, String answer, String author, String subject) {
         this(subject, questionText, author);
         this.answer = answer;
     }
+
+    public Question(String id, String questionText, String answer, String author, String subject) {
+        this(questionText, answer, subject, author);
+        this.id = id;
+    }
+
 
     public String getId() { return  id; }
 

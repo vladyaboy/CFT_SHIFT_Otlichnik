@@ -11,7 +11,7 @@ public final class UserRepositoryImpl implements UserRepository {
     public List<User> getUserList() {
         final List<User> userList = new ArrayList<>();
 
-        userList.add(new User("UserA", "Антон"));
+        userList.add(new User("Anton", "Антон"));
         userList.add(new User("UserB", "Артём"));
         userList.add(new User("UserC", "Женя"));
 

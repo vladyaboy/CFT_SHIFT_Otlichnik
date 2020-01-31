@@ -25,6 +25,11 @@ public class QuestionRepositoryImpl implements QuestionsRepository {
         //тут пока хз
     }
 
+    @Override
+    public void updateQuestion(String id, Question question, Carry<Question> carry) {
+        questionApi.updateQuestion(question.getId(), question).enqueue(new DefaultCallback<>(carry));
+    }
+
 
     @Override
     public void createQuestion(Question question, Carry<Question> carry) {

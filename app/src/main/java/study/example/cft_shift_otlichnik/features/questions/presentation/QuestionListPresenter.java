@@ -1,5 +1,7 @@
 package study.example.cft_shift_otlichnik.features.questions.presentation;
 
+import android.widget.Toast;
+
 import java.util.List;
 
 import study.example.cft_shift_otlichnik.MvpPresenter;
@@ -38,6 +40,20 @@ public final class QuestionListPresenter extends MvpPresenter<QuestionListView> 
             @Override
             public void onFailure(Throwable throwable) {
                 view.hideProgress();
+                view.showError(throwable.getMessage());
+            }
+        });
+    }
+
+    public void updateQuestion(Question question) {
+        questionsRepository.updateQuestion(question.getId(), question, new Carry<Question>() {
+            @Override
+            public void onSuccess(Question result) {
+                view.showError("Success");
+            }
+
+            @Override
+            public void onFailure(Throwable throwable) {
                 view.showError(throwable.getMessage());
             }
         });
