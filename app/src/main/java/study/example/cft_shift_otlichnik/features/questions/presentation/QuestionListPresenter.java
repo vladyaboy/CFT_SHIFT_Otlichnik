@@ -5,6 +5,7 @@ import java.util.List;
 import study.example.cft_shift_otlichnik.MvpPresenter;
 import study.example.cft_shift_otlichnik.features.questions.model.Question;
 import study.example.cft_shift_otlichnik.features.questions.model.QuestionsRepository;
+import study.example.cft_shift_otlichnik.features.questions.model.QuestionsResponse;
 import study.example.cft_shift_otlichnik.features.questions.view.QuestionListView;
 import study.example.cft_shift_otlichnik.network.Carry;
 
@@ -25,12 +26,12 @@ public final class QuestionListPresenter extends MvpPresenter<QuestionListView> 
     //Скачиваем вопросы с сервера. Пробуем, по крайней мере
     private void loadQuestions() {
         view.showProgress();
-        questionsRepository.loadQuestions(new Carry<List<Question>>() {
+        questionsRepository.loadQuestions(new Carry<QuestionsResponse>() {
             @Override
-            public void onSuccess(List<Question> result) {
+            public void onSuccess(QuestionsResponse result) {
                 //Вызываем метод в активити, который передает адаптеру данные со списком вопросов, пришедшим с сервера
-                view.initQuestionList(result);
-                view.initSubjectList(result);
+                view.initQuestionList(result.getQuestions());
+                view.initSubjectList(result.getQuestions());
                 view.hideProgress();
             }
 

@@ -5,7 +5,7 @@ import java.util.List;
 import study.example.cft_shift_otlichnik.network.Carry;
 
 public interface QuestionsRepository {
-    void loadQuestions(Carry<List<Question>> carry);
+    void loadQuestions(Carry<QuestionsResponse> carry);
 
     //void loadQuestion(String id, Carry<Question> carry);
 

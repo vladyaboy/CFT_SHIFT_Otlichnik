@@ -4,6 +4,7 @@ import java.util.List;
 
 import study.example.cft_shift_otlichnik.features.questions.model.Question;
 import study.example.cft_shift_otlichnik.features.questions.model.QuestionsRepository;
+import study.example.cft_shift_otlichnik.features.questions.model.QuestionsResponse;
 import study.example.cft_shift_otlichnik.features.questions.model.Success;
 import study.example.cft_shift_otlichnik.network.Carry;
 import study.example.cft_shift_otlichnik.network.DefaultCallback;
@@ -15,7 +16,7 @@ public class QuestionRepositoryImpl implements QuestionsRepository {
     public QuestionRepositoryImpl(QuestionApi questionApi) { this.questionApi = questionApi; }
 
     @Override
-    public void loadQuestions(Carry<List<Question>> carry) {
+    public void loadQuestions(Carry<QuestionsResponse> carry) {
         questionApi.getQuestionList().enqueue(new DefaultCallback(carry));
     }
 

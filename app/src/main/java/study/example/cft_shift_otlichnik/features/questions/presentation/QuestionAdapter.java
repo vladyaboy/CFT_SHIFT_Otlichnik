@@ -17,13 +17,13 @@ import okhttp3.Interceptor;
 import study.example.cft_shift_otlichnik.R;
 import study.example.cft_shift_otlichnik.features.questions.model.Question;
 
-public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.QuestionHolder> {
+public final class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.QuestionHolder> {
 
-    private final List<Question> allQuestions = new ArrayList<>();
+    private List<Question> allQuestions = new ArrayList<>();
     private final LayoutInflater inflater;
     private final List<String> subjectsList = new ArrayList<>();
     private final SelectQuestionListener selectQuestionListener;
-    private final List<Question> dynamicSubjectQuestions = new ArrayList<>();
+    private List<Question> dynamicSubjectQuestions = new ArrayList<>();
 
 
 
@@ -46,7 +46,7 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.Questi
 
     @Override
     public int getItemCount() {
-        return allQuestions.size();
+        return dynamicSubjectQuestions.size();
     }
 
     //Заполняем лист отфильтрованными вопросами
@@ -67,17 +67,23 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.Questi
     }
 
     //Заполняем список уникальных предметов
+    /*
+    Перекочевал в SpinnerAdapter
     public void initSubjectsList() {
             subjectsList.clear();
             for(Question question : allQuestions) { subjectsList.add(question.getSubject()); }
         subjectsList.stream().distinct().collect(Collectors.toList());
     }
+     */
 
 
     //Заполняем лист со всеми вопросами и дальше его не меняем, только достаем данные
     public void initAllQuestions(List<Question> questionList) {
         allQuestions.clear();
         allQuestions.addAll(questionList);
+        dynamicSubjectQuestions.clear();
+        dynamicSubjectQuestions.addAll(allQuestions);
+        notifyDataSetChanged();
     }
 
     //Фильтруем вопросы по запросу пользователя, нажавшего на значение в спиннере
@@ -89,7 +95,7 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.Questi
             showAllQuestions();
         } else {
             for (Question question : allQuestions) {
-                if (question.getSubject().equals(subjectName)) { dynamicSubjectQuestions.add(question); }
+                if (question.getSubject().equals(subjectName)) { temporaryList.add(question); }
                 if (temporaryList.size() > 0) {
                     setDynamicSubjectQuestions(temporaryList);
                 } else {

@@ -21,14 +21,17 @@ public final class SpinnerAdapterFactory {
         this.allQuestions = allQuestions;
     }
 
-    private List<String> itemsList = new ArrayList<>();;
 
     public ArrayAdapter createAdapter (Context context, int id) {
-        itemsList.clear();
+        List<String> itemsList = new ArrayList<>();
         itemsList.add(context.getResources().getString(R.string.show_all));
-        for(Question question : allQuestions) { itemsList.add(question.getSubject()); }
-        itemsList.stream().distinct().collect(Collectors.toList());
+        for(Question question : allQuestions) {
+            String subjectName = question.getSubject();
+            if(!itemsList.contains(subjectName)) {
+                itemsList.add(subjectName);
+            }
+        }
         ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(context, id, itemsList);
-        return new ArrayAdapter<String>(context, id, itemsList);
+        return spinnerAdapter;
     }
 }

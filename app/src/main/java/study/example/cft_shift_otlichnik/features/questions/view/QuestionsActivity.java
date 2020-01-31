@@ -69,8 +69,6 @@ public class QuestionsActivity extends BaseActivity implements QuestionListView 
         filterSpinner = findViewById(R.id.filterSpinner);
 
 
-        filterSpinner.setAdapter(spinnerAdapter);
-
         AdapterView.OnItemSelectedListener itemSelectedListener = new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -121,14 +119,16 @@ public class QuestionsActivity extends BaseActivity implements QuestionListView 
     @Override
     public void initQuestionList(List<Question> list) {
         adapter.initAllQuestions(list);
-        adapter.setDynamicSubjectQuestions(list);
+        adapter.showAllQuestions();
+        //adapter.setDynamicSubjectQuestions(list);
     }
 
     @Override
     public void initSubjectList(List<Question> list) {
-        spinnerAdapterFactory = new SpinnerAdapterFactory(list);
-        spinnerAdapter = spinnerAdapterFactory.createAdapter(this, android.R.layout.simple_spinner_item);
+        SpinnerAdapterFactory spinnerAdapterFactory = new SpinnerAdapterFactory(list);
+        spinnerAdapter = spinnerAdapterFactory.createAdapter(getApplicationContext(), android.R.layout.simple_spinner_item);
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        filterSpinner.setAdapter(spinnerAdapter);
     }
 
     @Override

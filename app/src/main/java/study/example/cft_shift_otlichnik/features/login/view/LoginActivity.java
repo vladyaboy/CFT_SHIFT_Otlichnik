@@ -19,6 +19,7 @@ import study.example.cft_shift_otlichnik.features.login.model.User;
 import study.example.cft_shift_otlichnik.features.login.presentation.LoginPresenter;
 import study.example.cft_shift_otlichnik.features.login.presentation.PresenterFactory;
 import study.example.cft_shift_otlichnik.features.menu.view.MenuActivity;
+import study.example.cft_shift_otlichnik.features.questions.view.QuestionsActivity;
 
 public class LoginActivity extends BaseActivity implements LoginView {
 
@@ -67,7 +68,7 @@ public class LoginActivity extends BaseActivity implements LoginView {
 
     @Override
     public void openMenuScreen(String userName) {
-        MenuActivity.start(this, userName);
+        QuestionsActivity.start(this);
     }
 
     @Override
