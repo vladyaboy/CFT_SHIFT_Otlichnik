@@ -18,20 +18,12 @@ public class Question implements Serializable {
         this.answer = "";
     }
 
-    public Question(String questionText, String author, String subject) {
-        this();
-        this.subject = subject;
-        this.questionText = questionText;
-        this.author = author;
-    }
-
-    public Question(String questionText, String answer, String author, String subject) {
-        this(subject, questionText, author);
-        this.answer = answer;
-    }
 
     public Question(String id, String questionText, String answer, String author, String subject) {
-        this(questionText, answer, subject, author);
+        this.questionText = questionText;
+        this.answer = answer;
+        this.author = author;
+        this.subject = subject;
         this.id = id;
     }
 

@@ -9,7 +9,7 @@ package study.example.cft_shift_otlichnik.exception;
 public final class EmptyBodyException extends IllegalStateException {
 
     public EmptyBodyException() {
-        super("Body is empty");
+        super("Вы не смогли получить доступ от сервера, скорее всего, это не ваш вопрос!");
     }
 
 }

@@ -115,6 +115,7 @@ public class QuestionsActivity extends BaseActivity implements QuestionListView 
             @Override
             public void onQuestionLongClick(Question question) {
                 //реализовать попытку удаления
+
             }
         });
 
@@ -146,6 +147,8 @@ public class QuestionsActivity extends BaseActivity implements QuestionListView 
 
         singleQuestionDialog.setOnQuestionUpdate(updatedQuestion -> {
             presenter.updateQuestion(updatedQuestion);
+            finish();
+            QuestionsActivity.start(this);
         });
 
         singleQuestionDialog.show(getSupportFragmentManager(), QUESTION_DIALOG_TAG);
@@ -155,8 +158,6 @@ public class QuestionsActivity extends BaseActivity implements QuestionListView 
     public void updateDynamicQuestionList(List<Question> list) {
 
     }
-
-
 
 
     @Override

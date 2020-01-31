@@ -1,11 +1,13 @@
 package study.example.cft_shift_otlichnik.features.questions.view;
 
 import android.os.Bundle;
+import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -44,13 +46,42 @@ public final class SingleQuestionDialog extends DialogFragment {
         Question question = (Question)getArguments().getSerializable(QUESTION_KEY);
 
         EditText questionSubjectEditText = (EditText) rootView.findViewById(R.id.questionSubjectEditText);
+        EditText questionText = rootView.findViewById(R.id.questionTextEditText);
+        EditText answerText = rootView.findViewById(R.id.questionAnswerEditText);
+        EditText authorTextEditText = rootView.findViewById(R.id.authorEditText);
+
+
         questionSubjectEditText.setText(question.getSubject());
+        questionText.setText(question.getQuestionText());
+        answerText.setText(question.getAnswer());
+        authorTextEditText.setText(question.getAuthor());
 
 
 
-        Button applyButton = (Button) rootView.findViewById(R.id.acceptEditButton);
+        Button applyButton = rootView.findViewById(R.id.acceptEditButton);
+        Button editButton = rootView.findViewById(R.id.editButton);
+
+
+
+        applyButton.setVisibility(View.INVISIBLE);
+
+        editButton.setOnClickListener(v -> {
+            questionSubjectEditText.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_LONG_MESSAGE);
+            questionText.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_LONG_MESSAGE);
+            answerText.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_LONG_MESSAGE);
+            applyButton.setVisibility(View.VISIBLE);
+
+        });
+
+
         applyButton.setOnClickListener( v -> {
-            Question toUpdate = new Question(question.getId(), question.getQuestionText(), question.getAuthor(), question.getAnswer(), questionSubjectEditText.getText().toString());
+            if(question.getAnswer().equals(answerText.getText().toString())
+                    || question.getSubject().equals(questionSubjectEditText.getText().toString())
+                    || question.getQuestionText().equals(questionText.getText().toString())) {
+                dismiss();
+
+            }
+            Question toUpdate = new Question(question.getId(), questionText.getText().toString(), answerText.getText().toString(), question.getAuthor(), questionSubjectEditText.getText().toString());
             if (onQuestionUpdate != null) {
                 onQuestionUpdate.update(toUpdate);
             }

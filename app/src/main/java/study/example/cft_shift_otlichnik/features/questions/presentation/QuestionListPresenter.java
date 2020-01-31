@@ -49,7 +49,7 @@ public final class QuestionListPresenter extends MvpPresenter<QuestionListView> 
         questionsRepository.updateQuestion(question.getId(), question, new Carry<Question>() {
             @Override
             public void onSuccess(Question result) {
-                view.showError("Success");
+                view.showError("Вопрос успешно редактирован!");
             }
 
             @Override
